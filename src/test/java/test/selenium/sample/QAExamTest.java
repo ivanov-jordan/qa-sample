@@ -17,7 +17,6 @@ import org.openqa.selenium.OutputType;
 import org.openqa.selenium.TakesScreenshot;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
-import org.openqa.selenium.remote.Augmenter;
 
 import test.selenium.sample.utils.TestSettings;
 import test.selenium.sample.utils.WebDriverFactory;
@@ -132,15 +131,13 @@ public class QAExamTest {
     }
 
     private void takeScreenshot(String page) {
-        WebDriver augmentedDriver = new Augmenter().augment(webDriver);
         String filePath = "d:\\tmp\\screenshots\\" + page + "_" + System.currentTimeMillis() + ".png";
-        File screenshotFile = ((TakesScreenshot) augmentedDriver).getScreenshotAs(OutputType.FILE);
+        File screenshotFile = ((TakesScreenshot) webDriver).getScreenshotAs(OutputType.FILE);
         try {
             FileUtils.copyFile(screenshotFile, new File(filePath));
         } catch (IOException ioe) {
             Assert.fail("Issue with saving screenshot in file " + filePath);
         }
-
     }
 
 }
